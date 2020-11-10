@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
 
-export default function App() {
+import { Stack } from './src/navigator';
+import AnimalDetailScreen from './src/screens/animal-detail-screen';
+import HomeScreen from './src/screens/home-screen';
+import configureStore from './src/store';
+
+const store = configureStore();
+
+const App: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerTintColor: 'white',
+            headerStyle: { backgroundColor: '#315ea8' },
+          }}>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: 'Escolha uma granja' }}
+          />
+          <Stack.Screen name="AnimalDetails" component={AnimalDetailScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
