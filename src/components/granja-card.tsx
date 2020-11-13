@@ -1,33 +1,49 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 
 import { Granja } from '../store/reducers/granja/types';
+import Button from './button';
+import Card from './card';
 
 type Props = {
   granja: Granja;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 };
 
 const GranjaCard: React.FC<Props> = ({ granja, style }) => {
+  const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.navigate('GranjaAnimals', { granjaId: granja.id });
+  };
   return (
-    <View style={[styles.card, style]}>
+    <Card style={style}>
       <Text style={styles.title}>{granja.nome}</Text>
-    </View>
+      <Text style={styles.address}>Rua São Sebastião, 19 - Maceió, AL</Text>
+      <Text style={styles.subtext}>16 animais listados</Text>
+      <Button color="#315ea8" style={styles.roundedButton} title="VER ANIMAIS" onPress={onPress} />
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#cecece',
-    borderRadius: 4,
-    marginBottom: 16,
-    backgroundColor: '#ffffff',
-  },
   title: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  subtext: {
+    textAlign: 'center',
+    marginTop: 2,
+  },
+  address: {
+    textAlign: 'center',
+    marginTop: 4,
+  },
+  roundedButton: {
+    borderRadius: 4,
+    marginTop: 16,
   },
 });
 
