@@ -12,7 +12,7 @@ import { getAccessToken } from '../services/storage';
 import { RootState } from '../store/reducers';
 import { UpdateAuthenticatedRequest } from '../store/reducers/auth/actions';
 import { getActiveUserRequest } from '../store/reducers/user/actions';
-import SignOutButton from './sign-out-button';
+import LogOutButton from './log-out-button';
 
 const Navigations: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -35,7 +35,7 @@ const Navigations: React.FC = () => {
         screenOptions={{
           headerTintColor: '#fafafa',
           headerStyle: { backgroundColor: '#315ea8' },
-          headerRight: () => <SignOutButton />,
+          headerRight: () => <LogOutButton />,
         }}>
         {isAuthenticated ? (
           <>
