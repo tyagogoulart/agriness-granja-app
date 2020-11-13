@@ -1,32 +1,23 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faCheckCircle,
+  faDonate,
+  faMinusCircle,
+  faPowerOff,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { Stack } from './src/navigator';
-import AnimalDetailScreen from './src/screens/animal-detail-screen';
-import HomeScreen from './src/screens/home-screen';
-import configureStore from './src/store';
-
-const store = configureStore();
+import Navigations from './src/containers/navigations';
+import store from './src/store';
+// @refresh reset
+library.add(faPowerOff, faCheckCircle, faMinusCircle, faDonate, faTimes);
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerTintColor: 'white',
-            headerStyle: { backgroundColor: '#315ea8' },
-          }}>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Escolha uma granja' }}
-          />
-          <Stack.Screen name="AnimalDetails" component={AnimalDetailScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Navigations />
     </Provider>
   );
 };
