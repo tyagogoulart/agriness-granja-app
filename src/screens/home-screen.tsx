@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import GranjasList from '../containers/granjas-list';
+import Greeting from '../containers/greeting';
 import { HomeScreenRouteProp, HomeScreenNavigationProp } from '../navigator';
 
 type Props = {
@@ -11,10 +12,11 @@ type Props = {
 
 const HomeScreen: React.FC<Props> = ({ navigation }: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bem vindo</Text>
+    <ScrollView style={styles.container}>
+      <Greeting />
+      <Text style={styles.message}>Escolha uma de suas granjas para continuar</Text>
       <GranjasList />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -22,11 +24,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
-  },
-  title: {
-    textAlign: 'center',
     padding: 16,
-    fontSize: 18,
+  },
+  message: {
+    paddingBottom: 16,
+    paddingTop: 4,
   },
 });
 
