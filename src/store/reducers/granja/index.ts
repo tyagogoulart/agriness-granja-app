@@ -1,15 +1,12 @@
 import { Reducer } from 'redux';
 
-import { GranjaState, GranjaActionTypes, GET_ACTIVE_GRANJA, LIST_GRANJA_ANIMALS } from './types';
+import { GranjaState, GranjaActionTypes, GranjaTypes } from './types';
 
 const initialState: GranjaState = {
-  granja: {
-    id: 0,
-    nome: '',
-    responsavel: 0,
-    usuarios: [],
-  },
+  locations: [],
   animals: [],
+  isLoading: false,
+  error: null,
 };
 
 const reducer: Reducer<GranjaState, GranjaActionTypes> = (
@@ -17,10 +14,37 @@ const reducer: Reducer<GranjaState, GranjaActionTypes> = (
   action
 ): GranjaState => {
   switch (action.type) {
-    case GET_ACTIVE_GRANJA:
-      return { ...state, granja: action.payload };
-    case LIST_GRANJA_ANIMALS:
-      return { ...state, animals: action.payload };
+    case GranjaTypes.LIST_GRANJA_ANIMALS_REQUEST:
+      return { ...state, isLoading: true, error: null, animals: [] };
+    case GranjaTypes.LIST_GRANJA_ANIMALS_SUCCESS:
+      return { ...state, isLoading: false, error: null, animals: action.payload };
+    case GranjaTypes.LIST_GRANJA_ANIMALS_FAILURE:
+      return { ...state, isLoading: false, error: action.payload, animals: [] };
+    case GranjaTypes.LIST_GRANJA_LOCATIONS_REQUEST:
+      return { ...state, isLoading: true, error: null, locations: [] };
+    case GranjaTypes.LIST_GRANJA_LOCATIONS_SUCCESS:
+      return { ...state, isLoading: false, error: null, locations: action.payload };
+    case GranjaTypes.LIST_GRANJA_LOCATIONS_FAILURE:
+      return { ...state, isLoading: false, error: action.payload, locations: [] };
+    case GranjaTypes.DELETE_GRANJA_ANIMAL_REQUEST:
+      return { ...state, isLoading: true, error: null };
+    case GranjaTypes.DELETE_GRANJA_ANIMAL_SUCCESS:
+      return { ...state, isLoading: false, error: null };
+    case GranjaTypes.DELETE_GRANJA_ANIMAL_FAILURE:
+      return { ...state, isLoading: false, error: action.payload };
+    case GranjaTypes.UPDATE_ANIMAL_FIELD_VALUE_REQUEST:
+      return { ...state, isLoading: true, error: null };
+    case GranjaTypes.UPDATE_ANIMAL_FIELD_VALUE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        animals: state.animals.map((animal) =>
+          animal.id === action.payload.id ? action.payload : animal
+        ),
+      };
+    case GranjaTypes.UPDATE_ANIMAL_FIELD_VALUE_FAILURE:
+      return { ...state, isLoading: false, error: action.payload };
     default:
       return state;
   }
