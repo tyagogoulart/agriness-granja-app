@@ -1,35 +1,37 @@
 import { Reducer } from 'redux';
 
-import { GET_ACTIVE_USER, LIST_USER_GRANJAS, UserActionTypes, UserState } from './types';
+import { UserActionTypes, UserState, UserTypes } from './types';
 
 const initialState: UserState = {
-  user: {
-    id: 0,
-    name: '',
+  activeUser: {
+    id: null,
+    nome: '',
     email: '',
   },
-  granjas: [
-    {
-      id: 1,
-      nome: 'Granja alterada 1',
-      responsavel: 2,
-      usuarios: [],
-    },
-    {
-      id: 3,
-      nome: 'Granja 3',
-      responsavel: 1,
-      usuarios: [],
-    },
-  ],
+  isLoading: false,
+  error: null,
+  granjas: [],
 };
 
 const reducer: Reducer<UserState, UserActionTypes> = (state = initialState, action): UserState => {
   switch (action.type) {
-    case GET_ACTIVE_USER:
-      return { ...state, user: action.payload };
-    case LIST_USER_GRANJAS:
-      return { ...state, granjas: action.payload };
+    case UserTypes.LIST_USER_GRANJAS_REQUEST:
+      return { ...state, isLoading: true, error: null, granjas: [] };
+    case UserTypes.LIST_USER_GRANJAS_SUCCESS:
+      return { ...state, isLoading: false, error: null, granjas: action.payload };
+    case UserTypes.LIST_USER_GRANJAS_FAILURE:
+      return { ...state, isLoading: false, error: action.payload, granjas: [] };
+    case UserTypes.GET_ACTIVE_USER_REQUEST:
+      return { ...state, isLoading: true, error: null, activeUser: initialState.activeUser };
+    case UserTypes.GET_ACTIVE_USER_SUCCESS:
+      return { ...state, isLoading: false, error: null, activeUser: action.payload };
+    case UserTypes.GET_ACTIVE_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+        activeUser: initialState.activeUser,
+      };
     default:
       return state;
   }
