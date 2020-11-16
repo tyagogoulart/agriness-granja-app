@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { Granja } from '../store/reducers/granja/types';
-import Button from './button';
+import { Granja } from '../store/reducers/granja/protocols/granja';
 import Card from './card';
 
 type Props = {
@@ -18,12 +18,13 @@ const GranjaCard: React.FC<Props> = ({ granja, style }) => {
     navigation.navigate('GranjaAnimals', { granjaId: granja.id });
   };
   return (
-    <Card style={style}>
-      <Text style={styles.title}>{granja.nome}</Text>
-      <Text style={styles.address}>Rua São Sebastião, 19 - Maceió, AL</Text>
-      <Text style={styles.subtext}>16 animais listados</Text>
-      <Button color="#315ea8" style={styles.roundedButton} title="VER ANIMAIS" onPress={onPress} />
-    </Card>
+    <TouchableOpacity onPress={onPress}>
+      <Card style={style}>
+        <Text style={styles.title}>{granja.nome}</Text>
+        <Text style={styles.address}>{granja.endereco}</Text>
+        <Text style={styles.subtext}>{granja.quantidade_animais} animais listados</Text>
+      </Card>
+    </TouchableOpacity>
   );
 };
 
