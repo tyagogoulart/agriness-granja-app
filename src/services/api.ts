@@ -36,13 +36,14 @@ api.interceptors.response.use(
               originalRequest.headers['Authorization'] = `Bearer ${response.data.access}`;
               resolve(axios(originalRequest));
             })
-            .catch(async (err) => {
-              //await removeTokens();
+            .catch((err) => {
               reject(err);
             });
         });
       }
     }
+
+    return Promise.reject(error);
   }
 );
 
