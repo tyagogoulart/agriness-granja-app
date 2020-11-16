@@ -3,11 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import GranjaCard from '../components/granja-card';
+import Loading from '../components/loading';
 import { RootState } from '../store/reducers';
 import { listUserGranjasRequest } from '../store/reducers/user/actions';
 
 const GranjasList: React.FC = () => {
-  const granjas = useSelector((state: RootState) => state.user.granjas);
+  const { granjas, isLoading } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,11 +16,17 @@ const GranjasList: React.FC = () => {
   }, []);
 
   return (
-    <View style={styles.list}>
-      {granjas.map((granja) => (
-        <GranjaCard key={granja.id} granja={granja} />
-      ))}
-    </View>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <View style={styles.list}>
+          {granjas.map((granja) => (
+            <GranjaCard key={granja.id} granja={granja} />
+          ))}
+        </View>
+      )}
+    </>
   );
 };
 
