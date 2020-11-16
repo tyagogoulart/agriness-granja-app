@@ -3,11 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
   attr: string;
+  minWidth?: number;
 };
 
-const AnimalAttribute: React.FC<Props> = ({ attr }) => {
+const AnimalAttribute: React.FC<Props> = ({ attr, minWidth }) => {
   return (
-    <View style={styles.attrWrapper}>
+    <View style={[styles.attrWrapper, { minWidth: minWidth !== undefined ? minWidth : 75 }]}>
       <Text style={styles.attr}>{attr}</Text>
     </View>
   );
@@ -21,7 +22,6 @@ const styles = StyleSheet.create({
   },
   attrWrapper: {
     flexDirection: 'row',
-    minWidth: 73,
   },
 });
 
