@@ -1,16 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 
 import GranjasList from '../containers/granjas-list';
 import Greeting from '../containers/greeting';
-import { HomeScreenRouteProp, HomeScreenNavigationProp } from '../navigator';
 
-type Props = {
-  route: HomeScreenRouteProp;
-  navigation: HomeScreenNavigationProp;
-};
-
-const HomeScreen: React.FC<Props> = ({ navigation }: Props) => {
+const HomeScreen: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <Greeting />
