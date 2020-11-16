@@ -1,49 +1,84 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { ReactText, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+import { FlatList, StyleSheet, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AnimalCard from '../components/animal-card';
-import EmptyList from '../components/empty-list';
+import Loading from '../components/loading';
 import { RootState } from '../store/reducers';
-import { listGranjaAnimalsRequest } from '../store/reducers/granja/actions';
+import {
+  filterGranjaAnimalsRequest,
+  listGranjaAnimalsRequest,
+  paginateGranjaAnimalsRequest,
+  shouldFetchMoreAnimals,
+} from '../store/reducers/granja/actions';
+import { Animal } from '../store/reducers/granja/protocols/animal';
 
 type Props = {
   granjaId: number;
-  filters: { name: string; location: ReactText };
 };
 
-const AnimalsList: React.FC<Props> = ({ granjaId, filters }) => {
-  const navigation = useNavigation();
-  const animals = useSelector((state: RootState) => state.granja.animals);
+type RenderItemProps = {
+  item: Animal;
+};
+
+const AnimalsList: React.FC<Props> = ({ granjaId }) => {
+  const { animals, filters, isLoading, pagination } = useSelector(
+    (state: RootState) => state.granja
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (filters.name.length >= 3 || filters.name.length === 0) {
-      dispatch(listGranjaAnimalsRequest(granjaId, filters));
-    }
+    return () => {
+      dispatch(filterGranjaAnimalsRequest('name', ''));
+      dispatch(filterGranjaAnimalsRequest('location', ''));
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(listGranjaAnimalsRequest(granjaId, filters, pagination.page));
   }, [filters]);
 
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('focus', () => {
-  //     dispatch(listGranjaAnimalsRequest(granjaId, filters));
-  //   });
+  useEffect(() => {
+    const { shouldFetchMore, maxPage, page } = pagination;
+    if (!shouldFetchMore || isLoading || maxPage < page) {
+      return;
+    }
+    dispatch(paginateGranjaAnimalsRequest(granjaId, filters, page));
+  }, [pagination.shouldFetchMore]);
 
-  //   return unsubscribe;
-  // }, [navigation]);
+  const fetchMore = useCallback(() => dispatch(shouldFetchMoreAnimals(true)), []);
+
+  const renderItem = ({ item }: RenderItemProps) => <AnimalCard animal={item} />;
+
+  const renderFooter = () => (isLoading ? <Loading /> : null);
+
+  const renderEmptyList = () =>
+    isLoading ? null : <Text style={styles.empty}>Não foram encontrados resultados.</Text>;
 
   return (
-    <View style={styles.list}>
-      {animals.map((animal) => (
-        <AnimalCard key={animal.id} animal={animal} />
-      ))}
-      <EmptyList list={animals} />
-    </View>
+    <>
+      <FlatList
+        style={styles.list}
+        data={animals}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        onEndReached={fetchMore}
+        onEndReachedThreshold={0.2}
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={renderEmptyList}
+      />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   list: {
+    padding: 16,
+    paddingTop: 4,
+    marginBottom: 16,
+  },
+  loading: {
+    alignItems: 'center',
     flex: 1,
   },
   empty: {
