@@ -16,7 +16,7 @@ No arquivo `api/services.ts`, será necessária a modificação do baseURL para 
 
 Após clonar este repositório e certificar-se de ter o `Node v12` e o `npm` em sua máquina, instale as dependências:
 
-`npm istall`
+`npm install`
     
 Antes de rodar o app, certifique-se de ter um emulador aberto, celular conectado ou pelo app Expo, [veja nos docs do Expo](https://docs.expo.io/get-started/installation/).
 
