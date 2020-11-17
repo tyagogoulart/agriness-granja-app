@@ -12,6 +12,12 @@ export type RootStackParamList = {
 export type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Home'>;
 export type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
+export type AnimalUpdateScreenRouteProp = RouteProp<RootStackParamList, 'AnimalUpdate'>;
+export type AnimalUpdateScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'AnimalUpdate'
+>;
+
 export type AnimalDetailScreenRouteProp = RouteProp<RootStackParamList, 'AnimalDetail'>;
 export type AnimalDetailScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
