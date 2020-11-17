@@ -1,5 +1,11 @@
 import { ReactText } from 'react';
 
+import { Animal } from './protocols/animal';
+import { AnimalsFilter } from './protocols/animals-filter';
+import { Error } from './protocols/error';
+import { Location } from './protocols/location';
+import { Pagination } from './protocols/pagination';
+
 export enum GranjaTypes {
   LIST_GRANJA_LOCATIONS_REQUEST = 'granja/LIST_GRANJA_LOCATIONS_REQUEST',
   LIST_GRANJA_LOCATIONS_SUCCESS = 'granja/LIST_GRANJA_LOCATIONS_SUCCESS',
@@ -13,64 +19,32 @@ export enum GranjaTypes {
   UPDATE_ANIMAL_FIELD_VALUE_REQUEST = 'granja/UPDATE_ANIMAL_FIELD_VALUE_REQUEST',
   UPDATE_ANIMAL_FIELD_VALUE_SUCCESS = 'granja/UPDATE_ANIMAL_FIELD_VALUE_SUCCESS',
   UPDATE_ANIMAL_FIELD_VALUE_FAILURE = 'granja/UPDATE_ANIMAL_FIELD_VALUE_FAILURE',
-}
-
-export interface Error {
-  message: string;
-  status: number;
-}
-
-export interface Granja {
-  id: number;
-  nome: string;
-  responsavel: number;
-  usuarios: [];
-}
-
-export interface Animal {
-  id: string;
-  fase_producao: {
-    id: number;
-    descricao: string;
-    sigla: string;
-  };
-  tipo_granja: {
-    id: number;
-    descricao: string;
-    sigla: string;
-  };
-  localizacao: string;
-  raca: string;
-  granja: number;
-  nome: string;
-  tipo_animal: string;
-  status_animal: number;
-  data_nascimento: string;
-  entrada_plantel: string;
-  peso_compra: number;
-  codigo_rastreamento: string;
-}
-
-export interface Location {
-  id: number;
-  nome: string;
-}
-
-export interface GranjaState {
-  readonly animals: Animal[];
-  readonly locations: Location[];
-  readonly isLoading: boolean;
-  readonly error: Error | null;
+  FILTER_GRANJA_ANIMALS_REQUEST = 'granja/FILTER_GRANJA_ANIMALS_REQUEST',
+  FILTER_GRANJA_ANIMALS_SUCCESS = 'granja/FILTER_GRANJA_ANIMALS_SUCCESS',
+  FILTER_GRANJA_ANIMALS_FAILURE = 'granja/FILTER_GRANJA_ANIMALS_FAILURE',
+  PAGINATE_GRANJA_ANIMALS_REQUEST = 'granja/PAGINATE_GRANJA_ANIMALS_REQUEST',
+  PAGINATE_GRANJA_ANIMALS_SUCCESS = 'granja/PAGINATE_GRANJA_ANIMALS_SUCCESS',
+  PAGINATE_GRANJA_ANIMALS_FAILURE = 'granja/PAGINATE_GRANJA_ANIMALS_FAILURE',
+  SHOULD_FETCH_MORE_ANIMALS = 'granja/SHOULD_FETCH_MORE_ANIMALS',
+  CLEAN_SUCCESS_MESSAGE = 'granja/CLEAN_SUCCESS_MESSAGE',
 }
 
 export interface ListGranjaAnimalsRequestAction {
   type: typeof GranjaTypes.LIST_GRANJA_ANIMALS_REQUEST;
-  payload: { granjaId: number; filters: { name: string; location: ReactText } };
+  payload: {
+    granjaId: number;
+    filters: AnimalsFilter;
+    page: number;
+  };
 }
 
 interface ListGranjaAnimalsSuccessAction {
   type: typeof GranjaTypes.LIST_GRANJA_ANIMALS_SUCCESS;
-  payload: Animal[];
+  payload: {
+    animals: Animal[];
+    count: number;
+    pagination: Pagination;
+  };
 }
 
 interface ListGranjaAnimalsFailureAction {
@@ -100,6 +74,7 @@ export interface DeleteGranjaAnimalRequestAction {
 
 interface DeleteGranjaAnimalSuccessAction {
   type: typeof GranjaTypes.DELETE_GRANJA_ANIMAL_SUCCESS;
+  payload: { animalId: string };
 }
 
 interface DeleteGranjaAnimalFailureAction {
@@ -109,7 +84,10 @@ interface DeleteGranjaAnimalFailureAction {
 
 export interface UpdateAnimalFieldValueRequestAction {
   type: typeof GranjaTypes.UPDATE_ANIMAL_FIELD_VALUE_REQUEST;
-  payload: { animalId: string; animal: Animal };
+  payload: {
+    animalId: string;
+    animal: Animal;
+  };
 }
 
 interface UpdateAnimalFieldValueSuccessAction {
@@ -120,6 +98,64 @@ interface UpdateAnimalFieldValueSuccessAction {
 interface UpdateAnimalFieldValueFailureAction {
   type: typeof GranjaTypes.UPDATE_ANIMAL_FIELD_VALUE_FAILURE;
   payload: Error;
+}
+
+export interface FilterGranjaAnimalsRequestAction {
+  type: typeof GranjaTypes.FILTER_GRANJA_ANIMALS_REQUEST;
+  payload: {
+    field: string;
+    value: ReactText;
+  };
+}
+
+interface FilterGranjaAnimalsSuccessAction {
+  type: typeof GranjaTypes.FILTER_GRANJA_ANIMALS_SUCCESS;
+  payload: {
+    field: string;
+    value: ReactText;
+  };
+}
+
+interface FilterGranjaAnimalsFailureAction {
+  type: typeof GranjaTypes.FILTER_GRANJA_ANIMALS_FAILURE;
+  payload: Error;
+}
+
+export interface PaginateGranjaAnimalsRequestAction {
+  type: typeof GranjaTypes.PAGINATE_GRANJA_ANIMALS_REQUEST;
+  payload: {
+    granjaId: number;
+    filters: AnimalsFilter;
+    page: number;
+  };
+}
+
+interface PaginateGranjaAnimalsSuccessAction {
+  type: typeof GranjaTypes.PAGINATE_GRANJA_ANIMALS_SUCCESS;
+  payload: {
+    animals: Animal[];
+    count: number;
+    pagination: Pagination;
+  };
+}
+
+interface PaginateGranjaAnimalsFailureAction {
+  type: typeof GranjaTypes.PAGINATE_GRANJA_ANIMALS_FAILURE;
+  payload: Error;
+}
+
+interface PaginateGranjaAnimalsFailureAction {
+  type: typeof GranjaTypes.PAGINATE_GRANJA_ANIMALS_FAILURE;
+  payload: Error;
+}
+
+interface ShouldFetchMoreAnimalsAction {
+  type: typeof GranjaTypes.SHOULD_FETCH_MORE_ANIMALS;
+  payload: boolean;
+}
+
+interface CleanSuccessMessageAction {
+  type: typeof GranjaTypes.CLEAN_SUCCESS_MESSAGE;
 }
 
 export type GranjaActionTypes =
@@ -134,4 +170,12 @@ export type GranjaActionTypes =
   | DeleteGranjaAnimalFailureAction
   | UpdateAnimalFieldValueRequestAction
   | UpdateAnimalFieldValueSuccessAction
-  | UpdateAnimalFieldValueFailureAction;
+  | UpdateAnimalFieldValueFailureAction
+  | FilterGranjaAnimalsRequestAction
+  | FilterGranjaAnimalsSuccessAction
+  | FilterGranjaAnimalsFailureAction
+  | PaginateGranjaAnimalsRequestAction
+  | PaginateGranjaAnimalsSuccessAction
+  | PaginateGranjaAnimalsFailureAction
+  | ShouldFetchMoreAnimalsAction
+  | CleanSuccessMessageAction;
