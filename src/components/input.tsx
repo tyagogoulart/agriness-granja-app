@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TextInputProps, View, TextInput, StyleProp, ViewStyle } from 'react-native';
 
+import { colors, metrics } from '../styles';
 import ErrorMessage from './error-message';
 
 type Props = TextInputProps & { error?: string; wrapperStyle?: StyleProp<ViewStyle> };
@@ -21,15 +22,15 @@ const Input: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 16,
+    marginBottom: metrics.baseMargin,
   },
   input: {
     backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: '#cecece',
-    borderRadius: 4,
+    borderColor: colors.lightGrey,
+    borderRadius: metrics.baseRadius,
     fontSize: 15,
-    color: '#000000',
+    color: colors.dark,
     height: 40,
     padding: 8,
   },

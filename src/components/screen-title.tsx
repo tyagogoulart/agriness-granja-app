@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
+import { metrics } from '../styles';
+
 type Props = {
   title: string;
   children?: React.ReactNode;
@@ -19,7 +21,7 @@ const ScreenTitle: React.FC<Props> = ({ title, children, style }) => {
 const styles = StyleSheet.create({
   titleWrapper: {
     flexDirection: 'row',
-    marginTop: 16,
+    marginTop: metrics.baseMargin,
   },
   title: {
     fontSize: 18,

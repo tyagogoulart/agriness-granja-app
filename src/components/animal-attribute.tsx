@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { colors } from '../styles';
+
 type Props = {
   attr: string;
   minWidth?: number;
@@ -17,7 +19,7 @@ const AnimalAttribute: React.FC<Props> = ({ attr, minWidth }) => {
 const styles = StyleSheet.create({
   attr: {
     fontSize: 11,
-    color: '#000000',
+    color: colors.dark,
     textAlign: 'left',
   },
   attrWrapper: {

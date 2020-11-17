@@ -11,6 +11,7 @@ import {
   validatePasswordMinLengthRequest,
   validateRequiredFieldRequest,
 } from '../store/reducers/auth/actions';
+import { colors, metrics } from '../styles';
 
 const LoginForm: React.FC = () => {
   const { error, isLoading, credentials } = useSelector((state: RootState) => state.auth);
@@ -79,13 +80,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   logo: {
-    marginBottom: 32,
-    marginTop: 16,
+    marginBottom: metrics.doubleBaseMargin,
+    marginTop: metrics.baseMargin,
   },
   error: {
     textAlign: 'center',
-    marginBottom: 16,
-    color: 'red',
+    marginBottom: metrics.baseMargin,
+    color: colors.error,
   },
 });
 

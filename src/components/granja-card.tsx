@@ -4,6 +4,7 @@ import { StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { Granja } from '../store/reducers/granja/protocols/granja';
+import { metrics } from '../styles';
 import Card from './card';
 
 type Props = {
@@ -43,8 +44,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   roundedButton: {
-    borderRadius: 4,
-    marginTop: 16,
+    borderRadius: metrics.baseRadius,
+    marginTop: metrics.baseMargin,
   },
 });
 

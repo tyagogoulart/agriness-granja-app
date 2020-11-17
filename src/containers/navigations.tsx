@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from '../components/loading';
@@ -13,6 +13,7 @@ import { getAccessToken } from '../services/storage';
 import { RootState } from '../store/reducers';
 import { UpdateAuthenticatedRequest } from '../store/reducers/auth/actions';
 import { getActiveUserRequest } from '../store/reducers/user/actions';
+import { colors } from '../styles';
 import LogOutButton from './log-out-button';
 
 const Navigations: React.FC = () => {
@@ -38,8 +39,8 @@ const Navigations: React.FC = () => {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerTintColor: '#fafafa',
-              headerStyle: { backgroundColor: '#315ea8' },
+              headerTintColor: colors.background,
+              headerStyle: { backgroundColor: colors.primary },
               headerRight: () => <LogOutButton />,
             }}>
             {isAuthenticated ? (

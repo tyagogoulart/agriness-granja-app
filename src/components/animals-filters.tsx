@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../store/reducers';
 import { listGranjaLocationsRequest } from '../store/reducers/granja/actions';
+import { metrics } from '../styles';
 import Input from './input';
 
 type filterTypes = {
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    marginBottom: 16,
+    marginBottom: metrics.baseMargin,
   },
   filterWrapper: {
     flex: 1,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    marginRight: 8,
+    marginRight: metrics.smallMargin,
   },
   picker: {
     backgroundColor: '#ffffff',
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#cecece',
     borderRadius: 4,
-    marginBottom: 16,
+    marginBottom: metrics.baseMargin,
   },
 });
 

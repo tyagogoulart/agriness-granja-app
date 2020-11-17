@@ -9,6 +9,7 @@ import {
   filterGranjaAnimalsRequest,
   listGranjaLocationsRequest,
 } from '../store/reducers/granja/actions';
+import { colors, metrics } from '../styles';
 
 type Props = {
   granjaId: number;
@@ -59,14 +60,14 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    marginBottom: 16,
+    marginBottom: metrics.baseMargin,
   },
   filterWrapper: {
     flex: 1,
     flexDirection: 'row',
   },
   input: {
-    marginRight: 8,
+    marginRight: metrics.smallMargin,
   },
   picker: {
     backgroundColor: '#ffffff',
@@ -77,9 +78,9 @@ const styles = StyleSheet.create({
     height: 40,
     flex: 1,
     borderWidth: 1,
-    borderColor: '#cecece',
+    borderColor: colors.lightGrey,
     borderRadius: 4,
-    marginBottom: 16,
+    marginBottom: metrics.baseMargin,
   },
 });
 

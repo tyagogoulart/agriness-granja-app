@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers';
 import { deleteGranjaAnimalRequest } from '../store/reducers/granja/actions';
 import { Animal } from '../store/reducers/granja/protocols/animal';
+import { colors, metrics } from '../styles';
 import { statusAnimal } from '../utils/animal-status-helpers';
 import AnimalAttribute from './animal-attribute';
 import Card from './card';
@@ -114,9 +115,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    marginRight: 8,
+    marginRight: metrics.smallMargin,
     fontWeight: 'bold',
-    color: '#000000',
+    color: colors.dark,
     fontSize: 16,
   },
   rightContent: {

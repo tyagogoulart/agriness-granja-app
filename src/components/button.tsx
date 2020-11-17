@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
+import { colors, metrics } from '../styles';
+
 type ButtonProps = {
   title?: string;
 };
@@ -20,13 +22,13 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 8,
     backgroundColor: '#ffffff',
-    borderColor: '#315ea8',
+    borderColor: colors.primary,
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: metrics.baseRadius,
   },
   text: {
     textAlign: 'center',
-    color: '#000000',
+    color: colors.dark,
     fontSize: 16,
   },
 });

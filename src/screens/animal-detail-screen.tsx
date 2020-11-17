@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import AnimalDetailCard from '../containers/animal-detail-card';
 import AnimalDetailHeader from '../containers/animal-detail-header';
 import { AnimalDetailScreenRouteProp } from '../navigator';
+import { colors } from '../styles';
 
 type Props = {
   route: AnimalDetailScreenRouteProp;
@@ -21,7 +22,7 @@ const AnimalDetailScreen: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: colors.background,
     padding: 16,
   },
 });

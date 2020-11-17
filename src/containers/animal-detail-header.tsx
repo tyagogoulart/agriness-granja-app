@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import ScreenTitle from '../components/screen-title';
 import { RootState } from '../store/reducers';
+import { colors, metrics } from '../styles';
 import { statusIcon } from '../utils/animal-status-helpers';
 
 type Props = {
@@ -31,8 +32,8 @@ const AnimalDetailHeader: React.FC<Props> = ({ animalId }) => {
 const styles = StyleSheet.create({
   code: {
     fontSize: 10,
-    color: '#315ea8',
-    marginBottom: 16,
+    color: colors.primary,
+    marginBottom: metrics.baseMargin,
   },
 });
 

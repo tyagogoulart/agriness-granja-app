@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 
 import GranjasList from '../containers/granjas-list';
 import Greeting from '../containers/greeting';
+import { colors } from '../styles';
 
 const HomeScreen: React.FC = () => {
   return (
@@ -17,7 +18,7 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: colors.background,
     padding: 16,
   },
   message: {

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../store/reducers';
 import { LogOutRequest } from '../store/reducers/auth/actions';
+import { metrics } from '../styles';
 
 const LogOutButton: React.FC = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -28,7 +29,7 @@ const LogOutButton: React.FC = () => {
 
 const styles = StyleSheet.create({
   icon: {
-    marginRight: 16,
+    marginRight: metrics.baseMargin,
     color: '#ffffff',
   },
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { metrics } from '../styles';
+
 type Props = { label: string; value: string };
 
 const AnimalInfo: React.FC<Props> = ({ label, value }) => {
@@ -14,7 +16,7 @@ const AnimalInfo: React.FC<Props> = ({ label, value }) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 8,
+    marginBottom: metrics.smallMargin,
   },
   label: {
     fontWeight: 'bold',

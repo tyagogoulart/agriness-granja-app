@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
+import { colors, metrics } from '../styles';
+
 type Props = {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
@@ -14,9 +16,9 @@ const styles = StyleSheet.create({
   card: {
     padding: 16,
     borderWidth: 1,
-    borderColor: '#cecece',
-    borderRadius: 4,
-    marginBottom: 8,
+    borderColor: colors.lightGrey,
+    borderRadius: metrics.baseRadius,
+    marginBottom: metrics.smallMargin,
     backgroundColor: '#ffffff',
   },
 });

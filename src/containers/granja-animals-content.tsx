@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import ScreenTitle from '../components/screen-title';
@@ -38,6 +38,10 @@ const styles = StyleSheet.create({
   listWrapper: {
     marginTop: 65,
     marginBottom: 80,
+  },
+  message: {
+    marginTop: 4,
+    textAlign: 'center',
   },
 });
 

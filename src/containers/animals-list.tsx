@@ -12,6 +12,7 @@ import {
   shouldFetchMoreAnimals,
 } from '../store/reducers/granja/actions';
 import { Animal } from '../store/reducers/granja/protocols/animal';
+import { metrics } from '../styles';
 
 type Props = {
   granjaId: number;
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   list: {
     padding: 16,
     paddingTop: 4,
-    marginBottom: 16,
+    marginBottom: metrics.baseMargin,
   },
   loading: {
     alignItems: 'center',
