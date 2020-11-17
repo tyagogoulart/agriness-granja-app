@@ -1,4 +1,6 @@
-import { Granja } from '../granja/types';
+import { Granja } from '../granja/protocols/granja';
+import { Error } from './protocols/error';
+import { User } from './protocols/user';
 
 export enum UserTypes {
   GET_ACTIVE_USER_REQUEST = 'user/GET_ACTIVE_USER_REQUEST',
@@ -7,24 +9,6 @@ export enum UserTypes {
   LIST_USER_GRANJAS_REQUEST = 'user/LIST_USER_GRANJAS_REQUEST',
   LIST_USER_GRANJAS_SUCCESS = 'user/LIST_USER_GRANJAS_SUCCESS',
   LIST_USER_GRANJAS_FAILURE = 'user/LIST_USER_GRANJAS_FAILURE',
-}
-
-export interface Error {
-  message: string;
-  status: number;
-}
-
-export interface User {
-  id: number | null;
-  nome: string;
-  email: string;
-}
-
-export interface UserState {
-  readonly activeUser: User;
-  readonly granjas: Granja[];
-  readonly isLoading: boolean;
-  readonly error: Error | null;
 }
 
 export interface GetActiveUserRequestAction {

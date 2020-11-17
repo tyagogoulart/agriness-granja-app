@@ -1,6 +1,7 @@
 import { Reducer } from 'redux';
 
-import { UserActionTypes, UserState, UserTypes } from './types';
+import { UserState } from './protocols/user-state';
+import { UserActionTypes, UserTypes } from './types';
 
 const initialState: UserState = {
   activeUser: {

@@ -1,5 +1,7 @@
-import { Granja } from '../granja/types';
-import { User, UserActionTypes, UserTypes, Error } from './types';
+import { Granja } from '../granja/protocols/granja';
+import { Error } from './protocols/error';
+import { User } from './protocols/user';
+import { UserActionTypes, UserTypes } from './types';
 
 export function getActiveUserRequest(): UserActionTypes {
   return {
