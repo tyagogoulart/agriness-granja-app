@@ -11,9 +11,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import Navigations from './src/containers/navigations';
-import store from './src/store';
+import { buildStore } from './src/store';
 // @refresh reset
 library.add(faPowerOff, faCheckCircle, faMinusCircle, faDonate, faTimes, faEllipsisV);
+const store = buildStore();
 
 const App: React.FC = () => {
   return (
