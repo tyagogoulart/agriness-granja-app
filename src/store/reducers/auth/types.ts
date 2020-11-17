@@ -1,3 +1,6 @@
+import { Credentials } from './protocols/credentials';
+import { Error } from './protocols/error';
+
 export enum AuthTypes {
   LOG_IN_REQUEST = 'auth/LOG_IN_REQUEST',
   LOG_IN_SUCCESS = 'auth/LOG_IN_SUCCESS',
@@ -8,28 +11,23 @@ export enum AuthTypes {
   UPDATE_AUTHENTICATED_REQUEST = 'auth/UPDATE_AUTHENTICATED_REQUEST',
   UPDATE_AUTHENTICATED_SUCCESS = 'auth/UPDATE_AUTHENTICATED_SUCCESS',
   UPDATE_AUTHENTICATED_FAILURE = 'auth/UPDATE_AUTHENTICATED_FAILURE',
-}
-
-export interface Error {
-  message: string;
-  status: number;
-}
-
-export type LogInTypes = {
-  email: string;
-  password: string;
-};
-
-export interface AuthState {
-  readonly credentials: LogInTypes;
-  readonly isAuthenticated: boolean;
-  readonly isLoading: boolean;
-  readonly error: Error | null;
+  SET_LOGIN_CREDENTIAL_REQUEST = 'auth/SET_LOGIN_CREDENTIAL_REQUEST',
+  SET_LOGIN_CREDENTIAL_SUCCESS = 'auth/SET_LOGIN_CREDENTIAL_SUCCESS',
+  SET_LOGIN_CREDENTIAL_FAILURE = 'auth/SET_LOGIN_CREDENTIAL_FAILURE',
+  VALIDATE_PASSWORD_MIN_LENGTH_REQUEST = 'auth/VALIDATE_PASSWORD_MIN_LENGTH_REQUEST',
+  VALIDATE_PASSWORD_MIN_LENGTH_SUCCESS = 'auth/VALIDATE_PASSWORD_MIN_LENGTH_SUCCESS',
+  VALIDATE_PASSWORD_MIN_LENGTH_FAILURE = 'auth/VALIDATE_PASSWORD_MIN_LENGTH_FAILURE',
+  VALIDATE_REQUIRED_FIELD_REQUEST = 'auth/VALIDATE_REQUIRED_FIELD_REQUEST',
+  VALIDATE_REQUIRED_FIELD_SUCCESS = 'auth/VALIDATE_REQUIRED_FIELD_SUCCESS',
+  VALIDATE_REQUIRED_FIELD_FAILURE = 'auth/VALIDATE_REQUIRED_FIELD_FAILURE',
+  VALIDATE_EMAIL_REQUEST = 'auth/VALIDATE_EMAIL_REQUEST',
+  VALIDATE_EMAIL_SUCCESS = 'auth/VALIDATE_EMAIL_SUCCESS',
+  VALIDATE_EMAIL_FAILURE = 'auth/VALIDATE_EMAIL_FAILURE',
 }
 
 export interface LogInRequestAction {
   type: typeof AuthTypes.LOG_IN_REQUEST;
-  payload: LogInTypes;
+  payload: Credentials;
 }
 
 interface LogInSuccessAction {
@@ -71,6 +69,63 @@ interface UpdateAuthenticatedFailureAction {
   payload: Error;
 }
 
+export interface SetLoginCredentialRequestAction {
+  type: typeof AuthTypes.SET_LOGIN_CREDENTIAL_REQUEST;
+  payload: { field: string; value: string };
+}
+
+interface SetLoginCredentialSuccessAction {
+  type: typeof AuthTypes.SET_LOGIN_CREDENTIAL_SUCCESS;
+  payload: { field: string; value: string };
+}
+
+interface SetLoginCredentialFailureAction {
+  type: typeof AuthTypes.SET_LOGIN_CREDENTIAL_FAILURE;
+  payload: Error;
+}
+
+export interface validatePasswordMinLengthRequestAction {
+  type: typeof AuthTypes.VALIDATE_PASSWORD_MIN_LENGTH_REQUEST;
+  payload: { value: string; minLength: number };
+}
+
+interface validatePasswordMinLengthSuccessAction {
+  type: typeof AuthTypes.VALIDATE_PASSWORD_MIN_LENGTH_SUCCESS;
+}
+
+interface validatePasswordMinLengthFailureAction {
+  type: typeof AuthTypes.VALIDATE_PASSWORD_MIN_LENGTH_FAILURE;
+  payload: { message: string };
+}
+
+export interface validateRequiredFieldRequestAction {
+  type: typeof AuthTypes.VALIDATE_REQUIRED_FIELD_REQUEST;
+  payload: { field: string; value: string };
+}
+
+interface validateRequiredFieldSuccessAction {
+  type: typeof AuthTypes.VALIDATE_REQUIRED_FIELD_SUCCESS;
+}
+
+interface validateRequiredFieldFailureAction {
+  type: typeof AuthTypes.VALIDATE_REQUIRED_FIELD_FAILURE;
+  payload: { field: string; message: string };
+}
+
+export interface validateEmailRequestAction {
+  type: typeof AuthTypes.VALIDATE_EMAIL_REQUEST;
+  payload: { value: string };
+}
+
+interface validateEmailSuccessAction {
+  type: typeof AuthTypes.VALIDATE_EMAIL_SUCCESS;
+}
+
+interface validateEmailFailureAction {
+  type: typeof AuthTypes.VALIDATE_EMAIL_FAILURE;
+  payload: { message: string };
+}
+
 export type AuthActionTypes =
   | LogInRequestAction
   | LogInSuccessAction
@@ -80,4 +135,16 @@ export type AuthActionTypes =
   | LogOutFailureAction
   | UpdateAuthenticatedRequestAction
   | UpdateAuthenticatedSuccessAction
-  | UpdateAuthenticatedFailureAction;
+  | UpdateAuthenticatedFailureAction
+  | SetLoginCredentialRequestAction
+  | SetLoginCredentialSuccessAction
+  | SetLoginCredentialFailureAction
+  | validatePasswordMinLengthRequestAction
+  | validatePasswordMinLengthSuccessAction
+  | validatePasswordMinLengthFailureAction
+  | validateRequiredFieldRequestAction
+  | validateRequiredFieldSuccessAction
+  | validateRequiredFieldFailureAction
+  | validateEmailRequestAction
+  | validateEmailSuccessAction
+  | validateEmailFailureAction;
